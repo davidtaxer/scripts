@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+
+import re
+import operator
+import csv
+
+type_map = {'ERROR': 1, 'INFO': 0}
+per_user = {}
+error = {}
+
+with open ("syslog.log") as file:
+    for line in file.readlines():
+        pattern = r": (ERROR|INFO) ([\w ']*)\[?\#?[\d]*?\]? \(([\w]*.?[\w]*?)\)"
+        m = re.search(pattern, line)
+        m_type = m.group(1)
+        message = m.group(2)
+        user = m.group(3)
+
+        if user not in per_user:
+                per_user[user] =  [0,0]
+
+        if m_type == "ERROR":
+            if message not in error:
+                error[message] = 0
+            error[message] += 1
+
+        per_user[user][type_map[m_type]] += 1
+
+error = dict(sorted(  error.items(),
+                            key=operator.itemgetter(1),
+                            reverse=True))
+per_user = dict(sorted(per_user.items()))
+
+print("Error : Count")
+print(error)
+print("")
+print(per_user)
+print("")
+for user in per_user:
+    print(user, per_user[user][type_map['ERROR']], per_user[user][type_map['INFO']])
