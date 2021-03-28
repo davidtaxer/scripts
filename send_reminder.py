@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-# To triger the error, LANG=en_US.UTF-8
-
+import csv
 import datetime
 import email
 import smtplib
@@ -16,9 +15,9 @@ def usage():
     return 1
 
 
-    def dow(date):
-        dateobj = datetime.datetime.strptime(date, r"%Y-%m-%d")
-        return dateobj.strftime("%A")
+def dow(date):
+    dateobj = datetime.datetime.strptime(date, r"%Y-%m-%d")
+    return dateobj.strftime("%A")
 
 
 def message_template(date, title):
@@ -26,7 +25,7 @@ def message_template(date, title):
     weekday = dow(date)
     message['Subject'] = f'Meeting reminder" "{title}"'
     message.set_content(f'''
-Hi all!
+Hi {name}!
 
 This is a quick mail to remind you all that we have a meeting about:
  "{title}"
@@ -35,6 +34,15 @@ This is a quick mail to remind you all that we have a meeting about:
  See you there.
  ''')
     return message
+
+def get_name(contacts, email):
+    name = ""
+    with open(contacts) as csvfile:
+        reader =  csv.reader(csvfile)
+        for row in reader:
+            if row[0] == email:
+                name = row[1]
+    return name
 
 
 def send_message(message, emails):
