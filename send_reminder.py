@@ -44,11 +44,13 @@ def read_names(contacts):
     return names
 
 
-def send_message(message, emails):
+def send_message(date, title, emails, contacts):
     smtp = smtplib.SMTP('localhost')
-    message['From'] = 'noreply@example.com'
+    names = read_names(contacts)
     for email in emails.split(','):
-        del message['To']
+        name = names[email]
+        message = message_template(date, title, name)
+        message['From'] = 'noreply@example.com'
         message['To'] = email
         smtp.send_message(message)
     smtp.quit()
