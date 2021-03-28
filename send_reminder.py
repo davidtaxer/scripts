@@ -11,7 +11,7 @@ def usage():
     print('send_reminders: Send meeting reminders')
     print()
     print('invocation:')
-    print("     send_reminders 'date|Meeting Title|Emails' ")
+    print("     send_reminders 'date|Meeting Title|emails' ")
     return 1
 
 
@@ -20,7 +20,7 @@ def dow(date):
     return dateobj.strftime("%A")
 
 
-def message_template(date, title):
+def message_template(date, title, name):
     message = email.message.EmailMessage()
     weekday = dow(date)
     message['Subject'] = f'Meeting reminder" "{title}"'
