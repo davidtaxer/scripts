@@ -35,14 +35,13 @@ This is a quick mail to remind you all that we have a meeting about:
  ''')
     return message
 
-def get_name(contacts, email):
-    name = ""
+def read_names(contacts):
+    names = {}
     with open(contacts) as csvfile:
         reader =  csv.reader(csvfile)
         for row in reader:
-            if row[0] == email:
-                name = row[1]
-    return name
+            names[row[0]] = row[1]
+    return names
 
 
 def send_message(message, emails):
