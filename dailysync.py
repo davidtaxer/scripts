@@ -1,16 +1,23 @@
 #!/usr/bin/env python
-import os
-import subprocess
 
+import subprocess, os
 from multiprocessing import Pool
+import re
+
+src = "/home/data/prod"
 
 
-src = os.path.expanduser("~/data/prod/")
-dest = os.path.expanduser("~/data/prod_backup/")
+def run(directory):
+    src = directory
+    dest = re.sub("(/prod)", r"\1"+"_backup",src)
+    print("Moving Data from {} to {}".format(src,dest))
+    subprocess.call(["rsync", "-arq", src, dest])
 
-def main(task):
-  subprocess.call(["rsync", "-arq", src+task, dest])
 
 if __name__ == "__main__":
-    p = Pool(len([dir for dirs in os.listdir(src)]))
-    p.map(main, os.listdir(src))
+  dir_list = []
+  for root, dirs, files in os.walk(src, topdown=False):
+      for name in dirs:
+          dir_list.append(os.path.join(root, name))
+  p = Pool(len(dir_list))
+  p.map(run, dir_list)
