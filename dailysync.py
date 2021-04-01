@@ -1,15 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import subprocess, os
 from multiprocessing import Pool
 import re
 
-src = "/home/data/prod"
+src = "/media/david/SSD-FILES/scripts/checks"
 
 
 def run(directory):
     src = directory
-    dest = re.sub("(/prod)", r"\1"+"_backup",src)
+    dest = "/media/david/BACKUP-TEST"
     print("Moving Data from {} to {}".format(src,dest))
     subprocess.call(["rsync", "-arq", src, dest])
 
