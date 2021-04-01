@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import time
 import concurrent.futures
@@ -16,4 +16,5 @@ def run():
     subprocess.call(["rsync", "-zavh", src, dest])
 
 finish = time.perf_counter()
+
 print(f'Finished in {round(finish-start, 2)} second(s)')
