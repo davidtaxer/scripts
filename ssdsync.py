@@ -13,7 +13,7 @@ dest = "/media/david/BACKUP-TEST"
 
 
 #def main(directory):
-print("Moving Data from {} to {}".format(src, dest))
+print("Syncing Data from (source){} to (destination){}".format(src, dest))
 print('')
 
 if __name__ == "__main__":
