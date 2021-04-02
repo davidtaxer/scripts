@@ -1,12 +1,32 @@
 #!/usr/bin/env python3
 
 import multiprocessing
-import subprocess, os
+import subprocess
+import os
 from multiprocessing import Pool
 import re
 import time
+import shutil
 
 start = time.perf_counter()
+
+def confirm():
+    gogo = input("Continue? yes/no\n")
+    global exit_condition
+    if gogo == 'yes':
+        exit_condition = 0
+        return exit_condition
+    elif gogo == "no":
+        exit_condition = 1
+        return exit_condition
+    else:
+        print("Please answer with yes or no.")
+        confirm()
+
+confirm()
+if exit_condition == 1:
+        print("Aborting!")
+        exit(1)
 
 src = "/media/david/SSD-FILES"
 dest = "/media/david/BACKUP-TEST"
