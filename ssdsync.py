@@ -30,7 +30,6 @@ if exit_condition == 1:
 start = time.perf_counter()
 
 src = "/media/david/SSD-FILES"
-# dest = "/media/david/BACKUP-TEST"
 dest = "/media/david/USB STICK"
 
 
