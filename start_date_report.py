@@ -33,7 +33,8 @@ def get_file_content(url):
     return dict(sorted(my_dict.items()))
 
 def get_same_or_newer(start_date, data):
-    """Go through all the data and find the employees that started on the given date, or the closest one. Do not include dates after today."""
+    """Go through all the data and find the employees that started on the given date,
+    or the closest one. Do not include dates after today."""
 
     my_date_employees = {}
     for key in data:
@@ -41,6 +42,7 @@ def get_same_or_newer(start_date, data):
         date = datetime.datetime.strptime(key, '%Y-%m-%d')
         if date >= start_date and date <= datetime.datetime.today():
             my_date_employees[date] = name
+        
     return my_date_employees
 
 def list_newer(start_date, data):
