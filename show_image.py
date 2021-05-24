@@ -2,7 +2,7 @@
 
 from PIL import Image
 
-file = "photo-1493976040374-85c8e12f0c0e.jpg"
-img = Image.open(file)
+file = "/media/david/SSD-FILES/scripts/photo-1493976040374-85c8e12f0c0e.jpg"
+img = Image.open(file, "r")
 
-img.show(file)
+img.show()
