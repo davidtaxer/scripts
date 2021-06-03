@@ -18,7 +18,7 @@ items = os.listdir(path)
 
 #print(items)
 
-#itterate through files in the directory
+#itterate through files in the directory and save them as a list of dictionaries
 list_of_files = []
 for file in items:
     with open (path + file) as info:
