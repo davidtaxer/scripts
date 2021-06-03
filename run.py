@@ -16,13 +16,14 @@ items = os.listdir(path)
 # (uncomment print line to check if items variable creats a list
 #  of files in path correctly)
 
-print(items)
+#print(items)
 
 #itterate through files in the directory
+list_of_files = []
 for file in items:
     with open (path + file) as info:
         data = info.read().split('\n')
-        dict = {'title':data[0], 'name':data[1], 'date':data[2], 'feedback':data[3]}
+        file_dict = {'title':data[0], 'name':data[1], 'date':data[2], 'feedback':data[3]}
+        list_of_files.append(file_dict)
 
-
-print(dict)
+print(list_of_files)
