@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-from reportlab.platypus import Paragraph, Spacer, Table, Image
-from reportlab.platypus import SimpleDocTemplate
-from reportlab.lib.styles import getSampleStyleSheet
 
 fruit = {
   "elderberries": 1,
@@ -13,9 +10,13 @@ fruit = {
   "grapes": 13
 }
 
-report = SimpleDocTemplate("/tmp/report.pdf")
+from reportlab.platypus import SimpleDocTemplate
+report = SimpleDocTemplate("/media/david/SSD-FILES/scripts/report.pdf")
 
+from reportlab.platypus import Paragraph, Spacer, Table, Image
+from reportlab.lib.styles import getSampleStyleSheet
 styles = getSampleStyleSheet()
 
 report_title = Paragraph("A Complete Inventory of My Fruit", styles["h1"])
+
 report.build([report_title])
