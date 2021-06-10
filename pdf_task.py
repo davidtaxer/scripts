@@ -10,6 +10,12 @@ fruit = {
   "grapes": 13
 }
 
+table_data = []
+for k, v in fruit.items():
+    table_data.append([k, v])
+
+#print(table_data)
+
 from reportlab.platypus import SimpleDocTemplate
 report = SimpleDocTemplate("/media/david/SSD-FILES/scripts/report.pdf")
 
@@ -19,4 +25,10 @@ styles = getSampleStyleSheet()
 
 report_title = Paragraph("A Complete Inventory of My Fruit", styles["h1"])
 
-report.build([report_title])
+report_table = Table(data=table_data)
+
+from reportlab.lib import colors
+table_style = [('GRID', (0,0), (-1,-1), 1, colors.black)]
+report_table = Table(data=table_data, style=table_style, hAlign="LEFT")
+
+report.build([report_title, report_table])
