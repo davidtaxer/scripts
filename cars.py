@@ -3,8 +3,11 @@
 import json
 import locale
 import sys
-
+import reports
 import emails
+from reportlab.graphics.shapes import Drawing
+from reportlab.graphics.charts.piecharts import Pie
+
 
 def load_data(filename):
   """Loads the contents of filename as a JSON file."""
@@ -53,10 +56,29 @@ def process_data(data):
   return summary
 
 
+def cars_dict_to_table(car_data):
+  """Turns the data in car_data into a list of lists."""
+  table_data = [["ID", "Car", "Price", "Total Sales"]]
+  for item in car_data:
+    table_data.append([item["id"], format_car(item["car"]), item["price"], item["total_sales"]])
+  return table_data
 
 
-"""Process the JSON data and generate a full report out of it."""
-data = load_data("car_sales.json")
-#print(data)
-summary = process_data(data)
-print(*summary, sep = "\n")
+def main(argv):
+  """Process the JSON data and generate a full report out of it."""
+  data = load_data("car_sales.json")
+  summary = process_data(data)
+
+  print(*summary, sep = "\n")
+  # TODO: turn this into a PDF report
+  car_data = cars_dict_to_table(data)
+  reports.generate("/tmp/cars.pdf", "Sales summary for last month", "<br/>".join(summary), car_data)
+
+
+    # TODO: send the PDF report as an email attachment
+  message = emails.generate("automation@example.com", "student-00-11863b85fb1c@example.com", "Sales summary for last month", "\n".join(summary), "/tmp/cars.pdf")
+  emails.send(message)
+
+
+if __name__ == "__main__":
+  main(sys.argv)
