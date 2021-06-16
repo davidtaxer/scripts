@@ -34,7 +34,7 @@ start = time.perf_counter()
 
 # source and destination
 src = "/media/david/SSD-FILES"
-dest = "/media/david/USB STICK"
+dest = "/media/david/USB STICK1"
 
 # message for user stating syncing fron sourece to destination
 print('')
